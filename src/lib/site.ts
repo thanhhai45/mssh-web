@@ -4,7 +4,7 @@
  * file, and the structured data reports it.
  */
 
-const version = '0.8.1'
+const version = '0.8.2'
 const repo = 'https://github.com/thanhhai45/mssh'
 
 export const site = {
