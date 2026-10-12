@@ -30,15 +30,17 @@ jobs:
 
       - run: npm ci
 
-      - name: Check
-        run: npx tsc --noEmit && npm run lint
-
       - name: Build
         # Defaults to https://<owner>.github.io/<repo>. Set the repository
         # variable SITE_URL once the site has a domain of its own.
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
         run: npm run build
+
+      - name: Check
+        # After the build, not before: tsc learns what an imported .webp or
+        # .png is from next-env.d.ts, which the build writes and git ignores.
+        run: npx tsc --noEmit && npm run lint
 
       - uses: actions/upload-pages-artifact@v3
         with:
