@@ -39,7 +39,7 @@ const scenes = {
   async home() {
     const page = await newPage('dark')
     await page.goto(`${BASE}/`, {waitUntil: 'networkidle0'})
-    await save(page, 'home', {png: true})
+    await save(page, 'home')
   },
   async terminal() {
     const page = await newPage('dark')
