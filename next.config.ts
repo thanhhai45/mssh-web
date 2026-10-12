@@ -6,7 +6,11 @@ import { site } from './src/lib/site'
 // GitHub Pages included. The base path comes from the site URL, so the two
 // cannot disagree: https://user.github.io/mssh-web means /mssh-web, a domain
 // of its own means none.
-const basePath = new URL(site.url).pathname.replace(/\/$/, '')
+//
+// Only for the build. `next dev` serves at the root, so http://localhost:3000
+// opens the page instead of a 404.
+const basePath =
+  process.env.NODE_ENV === 'production' ? new URL(site.url).pathname.replace(/\/$/, '') : ''
 
 const nextConfig: NextConfig = {
   output: 'export',

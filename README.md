@@ -7,11 +7,11 @@ built with Next.js and published to GitHub Pages.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000/mssh-web/
+npm run dev        # http://localhost:3000
 ```
 
-The page is served under `/mssh-web/` because that is where GitHub Pages puts a
-project site. Everything about the site — its URL, the version it offers, the
+`next dev` serves at the root. The build is served under `/mssh-web/`, because
+that is where GitHub Pages puts a project site. Everything about the site — its URL, the version it offers, the
 download links — lives in [`src/lib/site.ts`](src/lib/site.ts).
 
 ## Check and build
