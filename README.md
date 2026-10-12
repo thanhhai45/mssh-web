@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# mssh-web
 
-## Getting Started
+The product page for [mssh](https://github.com/thanhhai45/mssh): one static page,
+built with Next.js and published to GitHub Pages.
 
-First, run the development server:
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000/mssh-web/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The page is served under `/mssh-web/` because that is where GitHub Pages puts a
+project site. Everything about the site — its URL, the version it offers, the
+download links — lives in [`src/lib/site.ts`](src/lib/site.ts).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Check and build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run typecheck
+npm run lint
+npm run build      # static HTML in out/
+```
 
-## Learn More
+`next build` writes a plain static site to `out/`: no server, no API routes.
 
-To learn more about Next.js, take a look at the following resources:
+## Publish
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds and
+publishes on every push to `main`. Once, in the repository settings:
+**Pages → Source → GitHub Actions**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The site URL defaults to `https://<owner>.github.io/<repo>`. For a domain of its
+own, set the repository variable `SITE_URL` (Settings → Secrets and variables →
+Actions → Variables), e.g. `https://mssh.dev`. The base path follows from it:
+canonical links, Open Graph images, `sitemap.xml` and `robots.txt` all use it.
 
-## Deploy on Vercel
+## After each mssh release
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Change `version` in [`src/lib/site.ts`](src/lib/site.ts). The download buttons
+link to that exact `.dmg` and `.zip`, and the structured data reports it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## SEO
+
+| What | Where |
+|---|---|
+| Title, description, keywords, canonical, robots | `metadata` in [`src/app/layout.tsx`](src/app/layout.tsx), text from `site.ts` |
+| Open Graph / Twitter card (1200×630) | [`src/app/opengraph-image.png`](src/app/opengraph-image.png), `twitter-image.png`, with `.alt.txt` |
+| Structured data | JSON-LD in `layout.tsx`: `SoftwareApplication` (free, macOS, version, download URL) and `FAQPage` |
+| FAQ | [`src/lib/faqs.ts`](src/lib/faqs.ts) — one list, shown on the page and sent as FAQPage, so they cannot disagree |
+| Sitemap, robots | [`src/app/sitemap.ts`](src/app/sitemap.ts), [`src/app/robots.ts`](src/app/robots.ts) |
+| Icons | `src/app/icon.png`, `apple-icon.png` — the app icon |
+
+## Screenshots
+
+Every screenshot is the real mssh frontend, running in a headless browser
+against a fake Wails bridge with made-up data
+([`scripts/screenshots/mock-wails.js`](scripts/screenshots/mock-wails.js)) — no
+real servers, no real accounts. To take them again after the UI changes:
+
+```bash
+cd scripts/screenshots
+npm install                 # puppeteer, kept apart so the site build never downloads Chrome
+./serve.sh &                # mssh's frontend + the fake bridge on :5192 (mssh is expected at ../../../mssh)
+npm run capture             # all scenes; `node capture.mjs history` for one
+npm run og                  # the social card, from the new terminal screenshot
+```
+
+`capture` writes WebP for this site to `src/assets/screenshots/` and PNG for the
+mssh README to `mssh/.github/assets/`.

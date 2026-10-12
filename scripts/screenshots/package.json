@@ -1,0 +1,14 @@
+{
+  "name": "mssh-screenshots",
+  "private": true,
+  "type": "module",
+  "description": "Captures the screenshots and social card. Separate from the site so its build never downloads Chrome.",
+  "scripts": {
+    "serve": "./serve.sh",
+    "capture": "node capture.mjs",
+    "og": "node og.mjs"
+  },
+  "devDependencies": {
+    "puppeteer": "^24"
+  }
+}
