@@ -1,0 +1,12 @@
+// Cloudflare Workers serves the static export in out/ as plain files; there is
+// no Worker script. Without this file, `wrangler deploy` sees Next.js and tries
+// to build it for a server with OpenNext, which fails on `output: 'export'`.
+{
+  "name": "mssh-web",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./out",
+    // out/404.html, which Next writes from the not-found page.
+    "not_found_handling": "404-page"
+  }
+}
