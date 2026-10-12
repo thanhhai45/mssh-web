@@ -8,7 +8,7 @@ import {
   Layers,
   LockKeyhole,
   Network,
-  Palette,
+  Plus,
   RotateCw,
   Search,
   ShieldCheck,
@@ -24,7 +24,11 @@ import { WindowFrame } from '@/components/window-frame'
 import files from '@/assets/screenshots/files.webp'
 import history from '@/assets/screenshots/history.webp'
 import home from '@/assets/screenshots/home.webp'
+import newConnection from '@/assets/screenshots/new-connection.webp'
+import newWorkspace from '@/assets/screenshots/new-workspace.webp'
 import palette from '@/assets/screenshots/palette.webp'
+import terminalDracula from '@/assets/screenshots/terminal-dracula.webp'
+import terminalLight from '@/assets/screenshots/terminal-light.webp'
 import terminal from '@/assets/screenshots/terminal.webp'
 import themes from '@/assets/screenshots/themes.webp'
 import { faqs } from '@/lib/faqs'
@@ -85,6 +89,7 @@ export default function Home() {
           </a>
           <div className="hidden items-center gap-6 text-sm text-muted md:flex">
             <a href="#connections" className="hover:text-foreground">Connections</a>
+            <a href="#setup" className="hover:text-foreground">Setup</a>
             <a href="#features" className="hover:text-foreground">Features</a>
             <a href="#security" className="hover:text-foreground">Security</a>
             <a href="#faq" className="hover:text-foreground">FAQ</a>
@@ -97,7 +102,7 @@ export default function Home() {
               href={site.download}
               className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-background hover:bg-accent-strong"
             >
-              Download
+              Download for MacOS
             </a>
           </div>
         </nav>
@@ -173,8 +178,35 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Setting up */}
+        <section id="setup" className="py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow="Setting up"
+              title="Add a machine in under a minute"
+              text="Describe the machine once — mssh remembers how to reach it. Paste an ssh command and it fills the form in for you."
+            />
+            <div className="mt-14 grid items-start gap-8 lg:grid-cols-2">
+              <Shot
+                step={1}
+                title="Make a workspace"
+                text="A name, a colour, and the AWS profile and region its SSM machines inherit. Use the AWS CLI's own configuration, or keep a key pair here."
+                image={newWorkspace}
+                alt="The New workspace dialog: name Data Platform, violet colour, AWS CLI configuration, profile data-prod in eu-west-1"
+              />
+              <Shot
+                step={2}
+                title="Add a connection"
+                text="Pick how to reach it, then fill in only what that way needs. Here: SSH over SSM, by instance id, as ec2-user with a key file — profile and region inherited."
+                image={newConnection}
+                alt="The New connection dialog with SSH over SSM selected, an instance id, user ec2-user and a key file"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Feature rows */}
-        <section id="features" className="py-24">
+        <section id="features" className="border-t border-border py-24">
           <div className="mx-auto flex max-w-6xl flex-col gap-28 px-4 sm:px-6">
             <Feature
               icon={Network}
@@ -210,14 +242,33 @@ export default function Home() {
               alt="The command palette filtering machines by the text stag"
               reverse
             />
-            <Feature
-              icon={Palette}
+          </div>
+        </section>
+
+        {/* Appearance */}
+        <section id="appearance" className="border-t border-border py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SectionHeading
               eyebrow="Appearance"
               title="A terminal that looks like yours"
-              text="GitHub, iTerm2, VS Code, Dracula, Nord, Solarized, Gruvbox and Tokyo Night — or Auto, which follows macOS between light and dark. Font, size, line height and cursor apply to live sessions without reconnecting."
-              image={themes}
-              alt="The Themes page showing terminal colour presets as live previews"
+              text="GitHub, iTerm2, VS Code, Dracula, Nord, Solarized, Gruvbox and Tokyo Night — or Auto, which follows macOS between light and dark. Font, size, line height and cursor apply to live sessions, without reconnecting."
             />
+            <WindowFrame
+              src={themes}
+              title="Appearance"
+              className="mt-14"
+              alt="The Appearance page: light, dark or system app theme, and ten terminal colour presets shown as live previews, with Dracula selected"
+            />
+            <div className="mt-8 grid gap-8 md:grid-cols-2">
+              <figure>
+                <WindowFrame src={terminalDracula} title="Dracula" alt="The same session in the Dracula terminal theme" />
+                <figcaption className="mt-3 text-center text-sm text-muted">Dracula, in the dark app</figcaption>
+              </figure>
+              <figure>
+                <WindowFrame src={terminalLight} title="GitHub Light" alt="The same session in the GitHub Light theme, with the app in light mode" />
+                <figcaption className="mt-3 text-center text-sm text-muted">Auto: GitHub Light when macOS is light</figcaption>
+              </figure>
+            </div>
           </div>
         </section>
 
@@ -373,6 +424,38 @@ function Feature({
         <p className="mt-4 text-muted text-pretty">{text}</p>
       </div>
       <WindowFrame src={image} alt={alt} className={reverse ? 'lg:order-1' : ''} />
+    </div>
+  )
+}
+
+function Shot({
+  step,
+  title,
+  text,
+  image,
+  alt,
+}: {
+  step: number
+  title: string
+  text: string
+  image: Parameters<typeof WindowFrame>[0]['src']
+  alt: string
+}) {
+  return (
+    <div>
+      <div className="flex gap-4">
+        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-border bg-surface font-mono text-sm text-accent">
+          {step}
+        </span>
+        <div className="min-w-0">
+          <h3 className="flex items-center gap-2 font-semibold">
+            <Plus className="size-4 text-accent" />
+            {title}
+          </h3>
+          <p className="mt-1 text-sm text-muted">{text}</p>
+        </div>
+      </div>
+      <WindowFrame src={image} alt={alt} className="mt-6" />
     </div>
   )
 }
