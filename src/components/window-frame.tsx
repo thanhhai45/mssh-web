@@ -18,6 +18,29 @@ export function WindowFrame({
   className?: string
 }) {
   return (
+    <Window title={title} className={className}>
+      <Image
+        src={src}
+        alt={alt}
+        priority={priority}
+        sizes="(min-width: 1280px) 1152px, 100vw"
+        className="block h-auto w-full"
+      />
+    </Window>
+  )
+}
+
+/** The window chrome alone, for content other than a screenshot. */
+export function Window({
+  title = 'mssh',
+  className = '',
+  children,
+}: {
+  title?: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
     <figure
       className={`overflow-hidden rounded-xl border border-border bg-surface shadow-2xl shadow-black/60 ${className}`}
     >
@@ -27,13 +50,7 @@ export function WindowFrame({
         <span className="size-3 rounded-full bg-[#28c840]" />
         <span className="ml-3 text-xs text-muted">{title}</span>
       </div>
-      <Image
-        src={src}
-        alt={alt}
-        priority={priority}
-        sizes="(min-width: 1280px) 1152px, 100vw"
-        className="block h-auto w-full"
-      />
+      {children}
     </figure>
   )
 }

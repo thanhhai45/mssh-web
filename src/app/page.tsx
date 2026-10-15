@@ -1,5 +1,6 @@
 import {
   ArrowDownToLine,
+  CirclePlay,
   Cloud,
   FileCode2,
   FolderOpen,
@@ -21,6 +22,7 @@ import Image from 'next/image'
 import appIcon from '@/app/icon.png'
 import { GithubIcon } from '@/components/github-icon'
 import { WindowFrame } from '@/components/window-frame'
+import { YouTubeVideo } from '@/components/youtube-video'
 import files from '@/assets/screenshots/files.webp'
 import history from '@/assets/screenshots/history.webp'
 import home from '@/assets/screenshots/home.webp'
@@ -88,6 +90,7 @@ export default function Home() {
             mssh
           </a>
           <div className="hidden items-center gap-6 text-sm text-muted md:flex">
+            <a href="#tour" className="hover:text-foreground">Tour</a>
             <a href="#connections" className="hover:text-foreground">Connections</a>
             <a href="#setup" className="hover:text-foreground">Setup</a>
             <a href="#features" className="hover:text-foreground">Features</a>
@@ -146,6 +149,10 @@ export default function Home() {
             <p className="mt-4 text-xs text-muted">
               Universal: Apple silicon and Intel. Not yet notarised — right-click → Open the first time.
             </p>
+            <a href="#tour" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline">
+              <CirclePlay className="size-4" />
+              Watch the 2-minute tour
+            </a>
           </div>
           <div className="relative mx-auto max-w-6xl px-4 pb-24 sm:px-6">
             <WindowFrame
@@ -154,6 +161,22 @@ export default function Home() {
               title="api-gateway — SSH over SSM"
               alt="mssh connected to an EC2 instance over SSH through AWS Session Manager, showing a terminal with systemctl status and an access log, and a sidebar of workspaces"
             />
+          </div>
+        </section>
+
+        {/* Video tour */}
+        <section id="tour" className="scroll-mt-14 border-t border-border py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow="The tour"
+              title="See mssh in two minutes"
+              text="From a new workspace to a shell on an instance in a private subnet — the whole path, start to finish."
+            />
+            <YouTubeVideo id={site.tourVideo} title="A tour of mssh" poster={home} className="mt-14" />
+            <p className="mt-4 text-center text-xs text-muted">
+              Plays from YouTube once you press play — or{' '}
+              <a href={`https://youtu.be/${site.tourVideo}`} className="text-accent hover:underline">watch it there</a>.
+            </p>
           </div>
         </section>
 

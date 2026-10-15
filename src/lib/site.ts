@@ -29,4 +29,6 @@ export const site = {
   download: `${repo}/releases/download/v${version}/mssh-v${version}-macos-universal.dmg`,
   downloadZip: `${repo}/releases/download/v${version}/mssh-v${version}-macos-universal.zip`,
   author: 'HaNo',
+  // The two-minute tour on YouTube.
+  tourVideo: 'zkfG-HS-8aY',
 }
