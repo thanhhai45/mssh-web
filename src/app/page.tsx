@@ -360,11 +360,22 @@ export default function Home() {
                 <h3 className="text-xl font-semibold tracking-tight">Install on macOS</h3>
                 <ol className="mt-6 space-y-6">
                   <Step n={1} title="Drag mssh into Applications">Open the disk image and drop the app on the Applications folder.</Step>
-                  <Step n={2} title="Open it once with a right-click">
-                    The app is not notarised yet, so macOS blocks a double-click the first time. Right-click mssh.app, choose
-                    <strong className="text-foreground"> Open</strong>, and confirm. After that it opens like any other app.
+                  <Step n={2} title="Open it — macOS will block it the first time">
+                    mssh is not signed with an Apple Developer ID yet, so the first time you open it macOS says it
+                    “cannot be opened” or “cannot verify” the app. Choose <strong className="text-foreground">Done</strong>{' '}
+                    (not Move to Bin).
                   </Step>
-                  <Step n={3} title="For Session Manager only">
+                  <Step n={3} title="Allow it in Privacy & Security">
+                    Open <strong className="text-foreground">System Settings → Privacy &amp; Security</strong> and scroll down to
+                    Security. Next to “mssh was blocked to protect your Mac”, click{' '}
+                    <strong className="text-foreground">Open Anyway</strong>, then confirm with your password or Touch ID. You
+                    only do this once; after that mssh opens like any other app.
+                    <p className="mt-3">Or clear the quarantine flag from a terminal instead:</p>
+                    <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
+{`xattr -dr com.apple.quarantine /Applications/mssh.app`}
+                    </pre>
+                  </Step>
+                  <Step n={4} title="For Session Manager only">
                     Install the AWS CLI and the Session Manager plugin. mssh checks for both before it connects and tells you
                     which one is missing.
                     <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">

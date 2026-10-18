@@ -27,8 +27,11 @@ export const faqs = [
   {
     question: 'Why does macOS warn me the first time I open it?',
     answer:
-      'The app is not yet signed with an Apple Developer ID, so Gatekeeper cannot vouch for it. ' +
-      'Right-click mssh.app, choose Open, and confirm — you only have to do this once.',
+      'The app is not yet signed with an Apple Developer ID, so Gatekeeper cannot vouch for it and ' +
+      'blocks it the first time. Close the warning with Done, then open System Settings → Privacy & ' +
+      'Security, scroll to Security and click Open Anyway next to mssh, and confirm with your password. ' +
+      'You only have to do this once. Alternatively, run ' +
+      '`xattr -dr com.apple.quarantine /Applications/mssh.app` in a terminal.',
   },
   {
     question: 'Does mssh work on Linux or Windows?',
