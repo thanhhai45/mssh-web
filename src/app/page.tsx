@@ -102,10 +102,10 @@ export default function Home() {
               <GithubIcon className="size-5" />
             </a>
             <a
-              href={site.download}
+              href="#download"
               className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-background hover:bg-accent-strong"
             >
-              Download for MacOS
+              Download
             </a>
           </div>
         </nav>
@@ -121,7 +121,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-12 text-center sm:px-6 sm:pt-28">
             <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
               <span className="size-1.5 rounded-full bg-accent" />
-              Free for macOS · v{site.version}
+              New in v{site.version}: Linux — .deb, .rpm and AppImage
             </p>
             <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               The SSH client for servers you <span className="text-accent">can’t SSH into</span>.
@@ -139,6 +139,13 @@ export default function Home() {
                 Download for macOS
               </a>
               <a
+                href="#download"
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 font-medium hover:bg-surface-raised"
+              >
+                <ArrowDownToLine className="size-5" />
+                Download for Linux
+              </a>
+              <a
                 href={site.repo}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 font-medium hover:bg-surface-raised"
               >
@@ -147,7 +154,7 @@ export default function Home() {
               </a>
             </div>
             <p className="mt-4 text-xs text-muted">
-              Universal: Apple silicon and Intel. Not yet notarised — right-click → Open the first time.
+              Free · v{site.version} · macOS universal, Linux x86_64 and ARM64.
             </p>
             <a href="#tour" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline">
               <CirclePlay className="size-4" />
@@ -252,7 +259,7 @@ export default function Home() {
               icon={History}
               eyebrow="History"
               title="Who connected to which machine, when, and for how long"
-              text="Every session is recorded with its machine, workspace, AWS profile and how it ended. Filter by workspace, machine and time, and export CSV or JSON. The record stays when a machine is renamed or deleted — and it stays on your Mac."
+              text="Every session is recorded with its machine, workspace, AWS profile and how it ended. Filter by workspace, machine and time, and export CSV or JSON. The record stays when a machine is renamed or deleted — and it stays on your computer."
               image={history}
               alt="The History page: a table of sessions with their duration, machine, workspace, AWS profile and how they ended"
             />
@@ -332,30 +339,69 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Install */}
-        <section id="install" className="border-t border-border bg-surface/40 py-24">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <SectionHeading eyebrow="Install" title="Two minutes, and one right-click" />
-            <ol className="mt-12 space-y-6">
-              <Step n={1} title="Download">
-                <a href={site.download} className="text-accent hover:underline">mssh-v{site.version}-macos-universal.dmg</a>
-                {' '}— or the <a href={site.downloadZip} className="text-accent hover:underline">.zip</a>, or{' '}
-                <a href={site.releases} className="text-accent hover:underline">any earlier release</a>.
-              </Step>
-              <Step n={2} title="Drag mssh into Applications">Open the disk image and drop the app on the Applications folder.</Step>
-              <Step n={3} title="Open it once with a right-click">
-                The app is not notarised yet, so macOS blocks a double-click the first time. Right-click mssh.app, choose
-                <strong className="text-foreground"> Open</strong>, and confirm. After that it opens like any other app.
-              </Step>
-              <Step n={4} title="For Session Manager only">
-                Install the AWS CLI and the Session Manager plugin. mssh checks for both before it connects and tells you
-                which one is missing.
-                <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
+        {/* Download and install */}
+        <section id="download" className="border-t border-border bg-surface/40 py-24">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow={`Download · v${site.version}`}
+              title="macOS and Linux, free"
+              text="Pick the file for your system. Every build, including earlier ones, is on the GitHub releases page."
+            />
+            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+              <DownloadGroup title="macOS" files={site.downloads.macos} />
+              <DownloadGroup title="Linux" files={site.downloads.linux} />
+            </div>
+            <p className="mt-6 text-center text-sm text-muted">
+              <a href={site.releases} className="text-accent hover:underline">All releases on GitHub</a>
+            </p>
+
+            <div className="mt-20 grid gap-12 lg:grid-cols-2">
+              <div>
+                <h3 className="text-xl font-semibold tracking-tight">Install on macOS</h3>
+                <ol className="mt-6 space-y-6">
+                  <Step n={1} title="Drag mssh into Applications">Open the disk image and drop the app on the Applications folder.</Step>
+                  <Step n={2} title="Open it once with a right-click">
+                    The app is not notarised yet, so macOS blocks a double-click the first time. Right-click mssh.app, choose
+                    <strong className="text-foreground"> Open</strong>, and confirm. After that it opens like any other app.
+                  </Step>
+                  <Step n={3} title="For Session Manager only">
+                    Install the AWS CLI and the Session Manager plugin. mssh checks for both before it connects and tells you
+                    which one is missing.
+                    <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
 {`brew install awscli
 brew install --cask session-manager-plugin`}
-                </pre>
-              </Step>
-            </ol>
+                    </pre>
+                  </Step>
+                </ol>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold tracking-tight">Install on Linux</h3>
+                <ol className="mt-6 space-y-6">
+                  <Step n={1} title="Install with your package manager">
+                    It brings in GTK and WebKitGTK, and mssh appears in your applications menu.
+                    <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
+{`sudo apt install ./mssh_${site.version}_amd64.deb
+sudo dnf install ./mssh-${site.version}-1.x86_64.rpm
+sudo zypper install --allow-unsigned-rpm ./mssh-${site.version}-1.x86_64.rpm`}
+                    </pre>
+                  </Step>
+                  <Step n={2} title="Or run the AppImage">
+                    For Arch, Manjaro and anything else: it carries GTK and WebKitGTK inside, so there is nothing to install.
+                    <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
+{`chmod +x mssh-${site.version}-x86_64.AppImage
+./mssh-${site.version}-x86_64.AppImage`}
+                    </pre>
+                  </Step>
+                  <Step n={3} title="For Session Manager only">
+                    Install AWS’s own{' '}
+                    <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" className="text-accent hover:underline">AWS CLI v2</a>
+                    {' '}— not the version 1 in Ubuntu’s apt — and the{' '}
+                    <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html" className="text-accent hover:underline">Session Manager plugin</a>.
+                    Shortcuts on Linux take Shift as well — Ctrl+Shift+T, Ctrl+Shift+P — leaving Ctrl+letter to the shell.
+                  </Step>
+                </ol>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -385,7 +431,7 @@ brew install --cask session-manager-plugin`}
             <h2 className="text-3xl font-semibold tracking-tight">Stop assembling the command</h2>
             <p className="mt-4 text-muted">Free, local, and built for the machines that are hardest to reach.</p>
             <a
-              href={site.download}
+              href="#download"
               className="mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-background hover:bg-accent-strong"
             >
               <ArrowDownToLine className="size-5" />
@@ -479,6 +525,37 @@ function Shot({
         </div>
       </div>
       <WindowFrame src={image} alt={alt} className="mt-6" />
+    </div>
+  )
+}
+
+function DownloadGroup({
+  title,
+  files,
+}: {
+  title: string
+  files: { label: string; note: string; ext: string; url: string }[]
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-surface p-6">
+      <h3 className="font-semibold">{title}</h3>
+      <ul className="mt-4 space-y-2">
+        {files.map((f) => (
+          <li key={f.url}>
+            <a
+              href={f.url}
+              className="flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 hover:border-accent"
+            >
+              <ArrowDownToLine className="size-4 shrink-0 text-accent" />
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-medium">{f.label}</span>
+                <span className="block text-xs text-muted">{f.note}</span>
+              </span>
+              <span className="font-mono text-xs text-accent">{f.ext}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

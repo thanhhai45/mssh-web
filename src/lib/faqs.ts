@@ -13,13 +13,13 @@ export const faqs = [
     answer:
       'Through AWS Systems Manager Session Manager, the same way `aws ssm start-session` does. ' +
       'The instance needs the SSM Agent and an IAM role with AmazonSSMManagedInstanceCore; ' +
-      'your Mac needs the AWS CLI and the Session Manager plugin. With SSH over SSM, mssh then ' +
+      'your computer needs the AWS CLI and the Session Manager plugin. With SSH over SSM, mssh then ' +
       'runs a real SSH handshake through that tunnel, so you log in as your own user and can transfer files.',
   },
   {
     question: 'Where are my connections and passwords stored?',
     answer:
-      'In a local SQLite database on your Mac, readable by you alone (0600 in a 0700 directory). ' +
+      'In a local SQLite database on your computer, readable by you alone (0600 in a 0700 directory). ' +
       'Nothing is synced or sent anywhere. AWS credentials stay with the AWS CLI unless you choose ' +
       'to keep a key pair on a workspace, and even then they are handed to the AWS CLI through its ' +
       'environment, never its command line.',
@@ -31,10 +31,12 @@ export const faqs = [
       'Right-click mssh.app, choose Open, and confirm — you only have to do this once.',
   },
   {
-    question: 'Does mssh work on Windows or Linux?',
+    question: 'Does mssh work on Linux or Windows?',
     answer:
-      'Not yet. mssh is built and tested on macOS (Apple silicon and Intel). Windows and Linux ' +
-      'installers are planned.',
+      'Linux, yes — since version 0.9.0. There is a .deb for Ubuntu, Debian and Mint, an .rpm for ' +
+      'Fedora and openSUSE, both for x86_64 and ARM64, and an x86_64 AppImage for any other ' +
+      'distribution. It needs glibc 2.34 or newer (Ubuntu 22.04, Debian 12 and later). ' +
+      'Windows is not released yet.',
   },
   {
     question: 'Can I keep using my ~/.ssh/config?',
