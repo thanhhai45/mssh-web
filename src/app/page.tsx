@@ -4,6 +4,7 @@ import {
   Cloud,
   FileCode2,
   FolderOpen,
+  HeartHandshake,
   History,
   KeyRound,
   Layers,
@@ -23,6 +24,7 @@ import appIcon from '@/app/icon.png'
 import { GithubIcon } from '@/components/github-icon'
 import { WindowFrame } from '@/components/window-frame'
 import { YouTubeVideo } from '@/components/youtube-video'
+import donateQr from '@/assets/donate-qr.jpeg'
 import files from '@/assets/screenshots/files.webp'
 import history from '@/assets/screenshots/history.webp'
 import home from '@/assets/screenshots/home.webp'
@@ -478,6 +480,36 @@ sudo zypper install --allow-unsigned-rpm ./mssh-${site.version}-1.x86_64.rpm`}
           </div>
         </section>
 
+        {/* Donate */}
+        <section id="donate" className="scroll-mt-14 border-t border-border bg-surface/40 py-24">
+          <div className="mx-auto grid max-w-4xl items-center gap-12 px-4 sm:px-6 md:grid-cols-[1fr_auto]">
+            <div>
+              <HeartHandshake className="size-7 text-accent" />
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight">Support mssh</h2>
+              <p className="mt-4 text-muted text-pretty">
+                mssh is free and always will be — no account, no subscription. If it saves you time and you would like
+                to say thanks, a donation helps keep it going. It is entirely optional.
+              </p>
+              <p className="mt-4 text-sm text-muted">
+                Scan the code with any Vietnamese banking app (VietQR / Napas 247), or transfer to:
+              </p>
+              <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
+                <dt className="text-muted">Bank</dt>
+                <dd>{site.donate.bank}</dd>
+                <dt className="text-muted">Name</dt>
+                <dd>{site.donate.name}</dd>
+                <dt className="text-muted">Account</dt>
+                <dd className="font-mono select-all">{site.donate.account}</dd>
+              </dl>
+            </div>
+            <Image
+              src={donateQr}
+              alt={`VietQR code for a transfer to ${site.donate.name}, ${site.donate.bank} account ${site.donate.account}`}
+              className="mx-auto w-64 rounded-xl border border-border bg-white"
+            />
+          </div>
+        </section>
+
         {/* Closing call to action */}
         <section className="border-t border-border py-24 text-center">
           <div className="mx-auto max-w-2xl px-4 sm:px-6">
@@ -501,6 +533,7 @@ sudo zypper install --allow-unsigned-rpm ./mssh-${site.version}-1.x86_64.rpm`}
             <a href={site.repo} className="hover:text-foreground">GitHub</a>
             <a href={site.releases} className="hover:text-foreground">Releases</a>
             <a href={`${site.repo}#readme`} className="hover:text-foreground">Documentation</a>
+            <a href="#donate" className="hover:text-foreground">Donate</a>
           </div>
         </div>
       </footer>

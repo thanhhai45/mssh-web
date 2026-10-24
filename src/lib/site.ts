@@ -49,6 +49,8 @@ export const site = {
   download: downloads.macos[0].url,
   downloads,
   author: 'HaNo',
+  // Shown next to the VietQR code in the Donate section.
+  donate: { bank: 'Techcombank', name: 'LE THANH HAI', account: '19031683284010' },
   // The two-minute tour on YouTube.
   tourVideo: 'zkfG-HS-8aY',
 }
