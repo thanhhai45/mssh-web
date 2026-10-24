@@ -41,7 +41,15 @@ export const faqs = [
       'distribution. It needs glibc 2.34 or newer (Ubuntu 22.04, Debian 12 and later). ' +
       'Windows arrived in 0.10.0 as a preview: an x64 installer and a portable zip. Every connection ' +
       'kind is tested by CI on Windows, but it has not been used much by hand yet, and the Files ' +
-      'drawer is not available on System SSH connections there.',
+      'drawer is not available on System SSH connections there. It needs Windows 10 version 1809 ' +
+      'or newer, or Windows 11, on x64.',
+  },
+  {
+    question: 'How do I upgrade to a new version?',
+    answer:
+      'Download the new release and install it over the previous one. Connections, passwords, settings ' +
+      'and session history stay where they were, and the database is upgraded in place from any earlier ' +
+      'release. There are no automatic updates yet — watch the GitHub releases to hear about new versions.',
   },
   {
     question: 'Why does Windows warn me the first time I run it?',

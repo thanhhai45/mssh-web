@@ -66,7 +66,7 @@ const kinds = [
 const details = [
   { icon: Layers, title: 'Tabs that survive', text: 'Several terminals per machine. Switch pages and come back to the same scrollback, the same directory, the same running top.' },
   { icon: SquareTerminal, title: 'A real terminal', text: 'A full pty with xterm-256color: vim, htop and colours work, and the remote shell follows the window as you resize it.' },
-  { icon: Search, title: 'Search the scrollback', text: '⌘F finds text anywhere in a session, every match highlighted, with a running count.' },
+  { icon: Search, title: 'Search the scrollback', text: '⌘F (Ctrl+Shift+F on Linux and Windows) finds text anywhere in a session, every match highlighted, with a running count.' },
   { icon: ShieldCheck, title: 'Host keys, checked', text: 'The first time, mssh shows the fingerprint and asks — even through an SSM tunnel. A key that changed is refused, never offered.' },
   { icon: RotateCw, title: 'Busy servers, handled', text: 'When sshd’s MaxStartups turns a login away before it authenticates, mssh tries again on its own — over SSM too.' },
   { icon: Cloud, title: 'AWS your way', text: 'Use the AWS CLI’s own profiles and SSO, or keep a key pair on a workspace — imported from your shell in one click.' },
@@ -121,7 +121,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-12 text-center sm:px-6 sm:pt-28">
             <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
               <span className="size-1.5 rounded-full bg-accent" />
-              New in v{site.version}: Windows preview — installer and portable zip
+              v{site.version}: the first stable release — macOS, Linux and Windows
             </p>
             <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               The SSH client for servers you <span className="text-accent">can’t SSH into</span>.

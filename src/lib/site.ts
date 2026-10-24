@@ -4,7 +4,7 @@
  * file, and the structured data reports it.
  */
 
-const version = '0.10.0'
+const version = '1.0.0'
 const repo = 'https://github.com/thanhhai45/mssh'
 const file = (name: string) => `${repo}/releases/download/v${version}/${name}`
 
@@ -22,7 +22,7 @@ const downloads = {
     { label: 'Any other distribution', note: 'x86_64 · nothing to install', ext: '.AppImage', url: file(`mssh-${version}-x86_64.AppImage`) },
   ],
   windows: [
-    { label: 'Installer', note: 'x64 · Windows 10 and 11', ext: '.exe', url: file(`mssh-v${version}-windows-amd64-installer.exe`) },
+    { label: 'Installer', note: 'x64 · Windows 10 (1809+) and 11', ext: '.exe', url: file(`mssh-v${version}-windows-amd64-installer.exe`) },
     { label: 'Portable', note: 'x64 · nothing to install, needs WebView2', ext: '.zip', url: file(`mssh-v${version}-windows-amd64.zip`) },
   ],
 }
