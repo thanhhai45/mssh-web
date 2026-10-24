@@ -39,7 +39,16 @@ export const faqs = [
       'Linux, yes — since version 0.9.0. There is a .deb for Ubuntu, Debian and Mint, an .rpm for ' +
       'Fedora and openSUSE, both for x86_64 and ARM64, and an x86_64 AppImage for any other ' +
       'distribution. It needs glibc 2.34 or newer (Ubuntu 22.04, Debian 12 and later). ' +
-      'Windows is not released yet.',
+      'Windows arrived in 0.10.0 as a preview: an x64 installer and a portable zip. Every connection ' +
+      'kind is tested by CI on Windows, but it has not been used much by hand yet, and the Files ' +
+      'drawer is not available on System SSH connections there.',
+  },
+  {
+    question: 'Why does Windows warn me the first time I run it?',
+    answer:
+      'Neither the installer nor the portable mssh.exe is signed with a code signing certificate, so ' +
+      'SmartScreen shows “Windows protected your PC”. Choose More info, then Run anyway — you only ' +
+      'have to do this once. Your browser may also ask whether to keep the download, for the same reason.',
   },
   {
     question: 'Can I keep using my ~/.ssh/config?',

@@ -121,7 +121,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-12 text-center sm:px-6 sm:pt-28">
             <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
               <span className="size-1.5 rounded-full bg-accent" />
-              New in v{site.version}: Linux — .deb, .rpm and AppImage
+              New in v{site.version}: Windows preview — installer and portable zip
             </p>
             <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               The SSH client for servers you <span className="text-accent">can’t SSH into</span>.
@@ -130,7 +130,7 @@ export default function Home() {
               Every machine you look after, in one window — plain SSH, your <code className="font-mono text-foreground">~/.ssh/config</code>,
               and EC2 instances behind AWS Session Manager with no open port and no public IP.
             </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href={site.download}
                 className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-background hover:bg-accent-strong"
@@ -146,6 +146,13 @@ export default function Home() {
                 Download for Linux
               </a>
               <a
+                href="#download"
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 font-medium hover:bg-surface-raised"
+              >
+                <ArrowDownToLine className="size-5" />
+                Download for Windows
+              </a>
+              <a
                 href={site.repo}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 font-medium hover:bg-surface-raised"
               >
@@ -154,7 +161,7 @@ export default function Home() {
               </a>
             </div>
             <p className="mt-4 text-xs text-muted">
-              Free · v{site.version} · macOS universal, Linux x86_64 and ARM64.
+              Free · v{site.version} · macOS universal, Linux x86_64 and ARM64, Windows x64 (preview).
             </p>
             <a href="#tour" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline">
               <CirclePlay className="size-4" />
@@ -341,21 +348,22 @@ export default function Home() {
 
         {/* Download and install */}
         <section id="download" className="border-t border-border bg-surface/40 py-24">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
               eyebrow={`Download · v${site.version}`}
-              title="macOS and Linux, free"
+              title="macOS, Linux and Windows, free"
               text="Pick the file for your system. Every build, including earlier ones, is on the GitHub releases page."
             />
-            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
               <DownloadGroup title="macOS" files={site.downloads.macos} />
               <DownloadGroup title="Linux" files={site.downloads.linux} />
+              <DownloadGroup title="Windows · preview" files={site.downloads.windows} />
             </div>
             <p className="mt-6 text-center text-sm text-muted">
               <a href={site.releases} className="text-accent hover:underline">All releases on GitHub</a>
             </p>
 
-            <div className="mt-20 grid gap-12 lg:grid-cols-2">
+            <div className="mt-20 grid gap-12 lg:grid-cols-3">
               <div>
                 <h3 className="text-xl font-semibold tracking-tight">Install on macOS</h3>
                 <ol className="mt-6 space-y-6">
@@ -409,6 +417,40 @@ sudo zypper install --allow-unsigned-rpm ./mssh-${site.version}-1.x86_64.rpm`}
                     {' '}— not the version 1 in Ubuntu’s apt — and the{' '}
                     <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html" className="text-accent hover:underline">Session Manager plugin</a>.
                     Shortcuts on Linux take Shift as well — Ctrl+Shift+T, Ctrl+Shift+P — leaving Ctrl+letter to the shell.
+                  </Step>
+                </ol>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold tracking-tight">Install on Windows <span className="text-sm font-normal text-muted">· preview</span></h3>
+                <ol className="mt-6 space-y-6">
+                  <Step n={1} title="Run the installer">
+                    It asks for administrator rights once, installs into{' '}
+                    <code className="font-mono text-foreground">C:\Program Files\HaNo\mssh</code>, adds mssh to the Start menu
+                    and the desktop, and installs Microsoft’s WebView2 runtime if the machine does not have it yet (Windows 11
+                    does).
+                    <p className="mt-3">
+                      Or unzip the portable <code className="font-mono text-foreground">mssh.exe</code> anywhere and run it —
+                      nothing installed, but WebView2 must already be present.
+                    </p>
+                  </Step>
+                  <Step n={2} title="SmartScreen will warn you the first time">
+                    Neither file is signed with a code signing certificate yet, so Windows says “Windows protected your PC”.
+                    Choose <strong className="text-foreground">More info</strong>, then{' '}
+                    <strong className="text-foreground">Run anyway</strong> — once. Your browser may ask whether to keep the
+                    download first, for the same reason.
+                  </Step>
+                  <Step n={3} title="For Session Manager only">
+                    Install the AWS CLI and the{' '}
+                    <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html" className="text-accent hover:underline">Session Manager plugin</a>,
+                    then start mssh again — a running program keeps the PATH it started with.
+                    <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-4 font-mono text-xs text-foreground">
+{`winget install Amazon.AWSCLI`}
+                    </pre>
+                  </Step>
+                  <Step n={4} title="Uninstall from Settings → Apps">
+                    Your connections stay in <code className="font-mono text-foreground">%AppData%\mssh\mssh.db</code>, so
+                    installing again picks up where you left off. Shortcuts take Shift, as on Linux — Ctrl+Shift+T,
+                    Ctrl+Shift+P.
                   </Step>
                 </ol>
               </div>

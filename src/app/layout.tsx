@@ -59,7 +59,7 @@ const structuredData = [
     description: site.description,
     url: site.url + '/',
     applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'macOS, Linux',
+    operatingSystem: 'macOS, Linux, Windows',
     softwareVersion: site.version,
     downloadUrl: site.download,
     installUrl: site.releases,
